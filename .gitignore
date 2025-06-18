@@ -8,4 +8,5 @@ __pycache__/
 
 # Operating System specific files
 .DS_Store # macOS
-Thumbs.db # Windows
+Thumbs.db # Windowsgeminiproj
+geminiproj.pub
