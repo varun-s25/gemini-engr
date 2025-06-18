@@ -1,0 +1,37 @@
+### 1. Python Style Guide (PEP 8 Adherence)
+- Allow follow PEP 8 for python code formatting. Use linters like 'flake8' or 'black'.
+- Max line length: 79 characters.
+- Use 4 spaces for indentation. 
+- Variable and function names should be 'snake_case'.
+- Constants should be 'ALL_CAPS'.
+
+### 2. Code Documentation
+- All public functions/methods must have docstrings following Google-style or reStructuredText format.
+- Docstrings should explian what the function does, its arguments, and what it returns.
+- Complex algorithms or non-obvious logic should be commented inline.
+
+### 3. Error Handling
+- Use specific exceptions, not generic 'except Exception'.
+- Log errors appropriately (e.g., using Python's 'logging' module) with sufficient context.
+- Avoid bare 'pass' in 'except' blocks.
+
+### 4. Testing
+- All new features and bug fixes must have corresponding unit tests.
+- Aim for high test coverage (e.g., >80% for critical paths).
+- Use a testing framework like 'pytest'. 
+- Tests should be isolated and reproducible.
+
+### 5. Code Review
+- All code changes require at least one peer review. 
+- Focus reviews on correctness, readability, adherence to best practices, and test coverage. 
+- Provide constructive feeback. 
+
+### 6. Security
+- Sanitize all user inputs to prevent injection attacks (SQL, XSS, etc.). 
+- Never hardcode sensitive credentials. Use environment variables or a secure secret management system. 
+- Follow the principle of least privilege for access control. 
+
+### 7. Performance
+- Profile critical sections of code to identify bottlenecks. 
+- Optimize for readability and maintainability first, then performance. 
+- Avoid N+1 query problems in database interactions. 
