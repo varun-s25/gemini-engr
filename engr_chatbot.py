@@ -1,5 +1,6 @@
 import vertexai
 from vertexai.generative_models import GenerativeModel, Part
+from vertexai.preview.generative_models import GenerationConfig
 import os
 
 # --- CONFIGURATION ---
