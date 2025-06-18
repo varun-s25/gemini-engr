@@ -10,7 +10,7 @@ REGION = "us-central1"
 vertexai.init(project=PROJECT_ID, location=REGION)
 
 # Load Gemini model
-model = GenerativeModel("gemini-1.5-pro")
+model = GenerativeModel("gemini-1.5-flash")
 
 # --- Load Engineering Best Practices Document ---
 try:
