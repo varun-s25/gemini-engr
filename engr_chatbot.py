@@ -27,45 +27,35 @@ def get_engineering_assistance(query: str) -> str:
     # Dynamic Prompting: Adjusting prompt based on type of query
     # This is a simple heuristic; more complex bots would use NLU to categorize intent. 
     
-    base_instruction = """
-    You are an internal AI assistant for a software engineering team. Your goal is to provide helpful, concise, and accurate responses related to coding,
-    code explanation, and adherence to engineering best practices.
-    Always prioritize the best practices. 
-    If a query asks for a code snippet, provide it in a code block.
-    If you cannot fully answer based on your knowledge and the provided best practices, state that and suggest contacting a senior engineering or looking
-    up official documentation.
-    """
+    base_instruction = (
+        "You are an internal AI assistant for a software engineering team. "
+        "Provide concise, accurate answers about code, explanations, and engineering best practices. "
+        "Use code blocks when sharing code. If unsure, recommend consulting a senior engineer or documentation."
+    )
     
     # Best practiecs as grounding context
-    grounding_context = f"""
-    ## Engineering Best Practices:
-    {engineering_best_practices}
-    """
+    grounding_context = f"## Engineering Best Practices:\n{engineering_best_practices}"
     
-    # Craft full prompt
-    prompt = f"""
-    {base_instruction}
+    # Trim grounding if needed
+    if len(grounding_context) > 4000:
+        grounding_context = grounding_context[:4000] + "\n(...truncated)"
+        
+    full_prompt = f"{base_instruction}\n\n{grounding_context}\n\n## Engineer's Query:\n{query}\n\n## Your Response:\n"
     
-    {grounding_context}
-    
-    ## Engineer's Query: 
-    {query}
-    
-    ## Your Response:
-    """
     try:
         response = model.generate_content(
-            prompt,
-            generation_config={
-                "max_output_tokens": 1000,
-                "temperature": 0.5,
-                "top_p": 0.9,
-                "top_k": 40,
-            }
+            full_prompt,
+            generation_config = GenerationConfig(
+                max_output_tokens=1000,
+                temperature=0.5,
+                top_p=0.9,
+                top_k=40
+            )
         )
         return response.text.strip()
     except Exception as e:
         return f"Error generating response: {str(e)}"
+    
 
 
 def main():
